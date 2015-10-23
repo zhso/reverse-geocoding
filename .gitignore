@@ -25,6 +25,7 @@
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
+/npm-debug.log
 
 ## File-based project format:
 *.ipr
