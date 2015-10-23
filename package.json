@@ -1,0 +1,16 @@
+{
+  "name": "reverse-geocoding",
+  "version": "0.0.1",
+  "description": "Reverse Geocoding for a Latitude and Longitude by Async.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "geocoding",
+    "reverse",
+    "gps"
+  ],
+  "author": "s@zhso.net",
+  "license": "MIT"
+}
