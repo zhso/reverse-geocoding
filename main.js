@@ -1,6 +1,7 @@
 /**
  * Created by s@zhso.net on 2015/10/20.
  */
+"use strict";
 var http = require("http");
 var url = require("url");
 exports.location = function () {
@@ -23,8 +24,9 @@ exports.location = function () {
     }
     //TODO: Add Other Interface Support
     //TODO: Add Multi Interface Support
+    //TODO: Add Cache Support
     var path = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude;
-    config.language?path+="&language="+config.language:"";
+    config.language ? path += "&language=" + config.language : "";
     config.options = config.options || url.parse(path);
     config.options.path = config.options.path || path;
     new Promise(function (resolve, reject) {
@@ -33,8 +35,12 @@ exports.location = function () {
             response.on("data", function (chunk) {
                 bufferList.push(chunk);
             }).on("end", function () {
-                var data = Buffer.concat(bufferList).toString();
-                resolve(JSON.parse(data));
+                var data = JSON.parse(Buffer.concat(bufferList).toString());
+                if (data.status === "OK") {
+                    resolve(data);
+                } else {
+                    reject(data.status);
+                }
             }).on("error", function (error) {
                 reject(error);
             });
@@ -61,4 +67,4 @@ exports.location = function () {
         }).catch(function (error) {
             callback(error, undefined);
         })
-}
+};

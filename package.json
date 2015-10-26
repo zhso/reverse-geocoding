@@ -1,6 +1,6 @@
 {
   "name": "reverse-geocoding",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Reverse Geocoding for a Latitude and Longitude by Async.",
   "main": "main.js",
   "scripts": {
@@ -11,6 +11,15 @@
     "reverse",
     "gps"
   ],
+  "homepage": "https://github.com/zhso/reverse-geocoding",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhso/reverse-geocoding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhso/reverse-geocoding/issues",
+    "email": "project@hostname.com"
+  },
   "author": "s@zhso.net",
   "license": "MIT"
 }

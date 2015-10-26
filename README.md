@@ -14,7 +14,7 @@ geocoding.location(40.00403611111111, 116.48485555555555, function (err, data){
 
 ## Features
 
-* Custom language
+* Custom Language
 * Custom Proxy
 
 ## Installation
@@ -48,4 +48,34 @@ geocoding.location(40.00403611111111, 116.48485555555555, config, function (err,
 		console.log(data);
 	}
 });
+```
+
+## Callback Data Format
+
+```js
+{
+	"formattedAddress": "",
+	"streetAddress": "",
+	"route": "",
+	"intersection": "",
+	"political": "",
+	"country": "",
+	"administrativeAreaLevel1": "",
+	"administrativeAreaLevel2": "",
+	"administrativeAreaLevel3": "",
+	"administrativeAreaLevel4": "",
+	"administrativeAreaLevel5": "",
+	"colloquialArea": "",
+	"locality": "",
+	"ward": "",
+	"sublocality": "",
+	"neighborhood": "",
+	"premise": "",
+	"subpremise": "",
+	"postalCode": "",
+	"naturalFeature": "",
+	"airport": "",
+	"park": "",
+	"pointOfInterest": ""
+}
 ```
