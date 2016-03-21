@@ -1,6 +1,3 @@
-/**
- * Created by s@zhso.net on 2015/10/20.
- */
 "use strict";
 var http = require("http");
 var url = require("url");
@@ -25,7 +22,8 @@ exports.location = function () {
     //TODO: Add Other Interface Support
     //TODO: Add Multi Interface Support
     //TODO: Add Cache Support
-    var path = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude;
+    //var path = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude;
+    var path = "http://api.map.baidu.com/geocoder/v2/?ak=082f344d858ae8483cc931c6624aa2e7&location=" + latitude + "," + longitude + "&output=json";
     config.language ? path += "&language=" + config.language : "";
     config.options = config.options || url.parse(path);
     config.options.path = config.options.path || path;
@@ -36,7 +34,7 @@ exports.location = function () {
                 bufferList.push(chunk);
             }).on("end", function () {
                 var data = JSON.parse(Buffer.concat(bufferList).toString());
-                if (data.status === "OK") {
+                if (data.status === "OK" || data.status === 0) {
                     resolve(data);
                 } else {
                     reject(data.status);
@@ -46,25 +44,10 @@ exports.location = function () {
             });
         });
     }).then(function (data) {
-            var result = data.results[0];
-            var addressComponents = result["address_components"];
-            var obj = {};
-            obj.formattedAddress = result["formatted_address"];
-            for (var i = 0; i < addressComponents.length; i++) {
-                var address = addressComponents[i];
-                var type = address.types[0];
-                /*API Auto Translate*/
-                if (type.indexOf("_") > 0) {
-                    type = type.replace(/_\w{1}/g, function (char) {
-                        return char.substring(1).toUpperCase();
-                    });
-                }
-                obj[type] = address["long_name"];
-            }
-            callback(undefined, obj);
-        }, function (error) {
-            callback(error, undefined);
-        }).catch(function (error) {
-            callback(error, undefined);
-        })
+        callback(undefined, data);
+    }, function (error) {
+        callback(error, undefined);
+    }).catch(function (error) {
+        callback(error, undefined);
+    })
 };
