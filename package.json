@@ -1,10 +1,10 @@
 {
   "name": "reverse-geocoding",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Reverse Geocoding for a Latitude and Longitude by Async.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "keywords": [
     "geocoding",
