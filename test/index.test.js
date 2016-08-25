@@ -33,4 +33,5 @@ describe(".location()", () => {
             }
         });
     });
+    //because baidu maps need private token, so... pass the test;)
 });
