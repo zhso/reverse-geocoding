@@ -1,26 +1,29 @@
 /*global JSON*/
 'use strict';
-const http = require('http');
-const url = require('url');
+const http = require('http'), url = require('url'), querystring = require('querystring');
 exports.location = (config, callback)=> {
-    if (!config && !callback) {
+    if (!config || !callback) {
         throw new Error("Invalid arguments number.");
     } else if (!config.latitude || !config.longitude) {
         throw new Error("Latitude or Longitude not found.");
     }
-    if (!callback) {
-        throw new Error("Please define callback function.");
+    let {latitude, longitude, map} = config;
+    delete config.latitude;
+    delete config.longitude;
+    let address = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}`;
+    switch (map) {
+        case'baidu':
+            address = `http://api.map.baidu.com/geocoder/v2/?output=json&location=${latitude},${longitude}`;
+            break;
+        default:
+            break;
     }
-    //TODO: Add Other Interface Support
-    //TODO: Add Multi Interface Support
-    //TODO: Add Cache Support
-    //var path = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude;
-    let path = `http://api.map.baidu.com/geocoder/v2/?ak=082f344d858ae8483cc931c6624aa2e7&location=${config.latitude},${config.longitude}&output=json`;
-    config['language'] ? path += `&language=${config.language}` : "";
-    config.options = config.options || url.parse(path);
-    config.options.path = config.options.path || path;
+    delete config.map;
+    address += `&${querystring.stringify(config)}`;
+    let options = config.options || url.parse(address);
+    options.path = options.path || address;
     new Promise((resolve, reject) => {
-        http.get(config.options, response=> {
+        http.get(options, response=> {
             let bufferList = [];
             response.on("data", chunk=> {
                 bufferList.push(chunk);

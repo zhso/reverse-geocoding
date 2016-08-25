@@ -1,17 +1,36 @@
 'use strict';
 const reverse = require('./../index.js');
 const chai = require('chai');
-let should = chai.should();
 const expect = chai.expect;
-let config = {
-    lat: 40.004086111111114,
-    lng: 116.48478055555556
-};
 describe(".location()", () => {
-    it("arguments undefined should throw error.", ()=> {
+    it("{arguments} number invalid should throw error.", ()=> {
         expect(reverse.location).to.throw(Error);
     });
-    it('latitude or longitude undefined should throw error.', ()=> {
-        assert.ifError(reverse.location({}, ()=>{}));
+    it('{latitude} or {longitude} undefined should throw error.', ()=> {
+        expect(()=> {
+            reverse.location({}, ()=> {
+            });
+        }).to.throw(Error);
+    });
+    it('valid gps should return location.', done=> {
+        reverse.location({
+            'latitude': 40.00403611111111,
+            'longitude': 116.48485555555555
+        }, (err, data)=> {
+            if (data) {
+                done();
+            }
+        });
+    });
+    it('custom options should be valid.', done=> {
+        reverse.location({
+            'latitude': 40.00403611111111,
+            'longitude': 116.48485555555555,
+            'language': 'zh-cn'
+        }, (err, data)=> {
+            if (data) {
+                done();
+            }
+        });
     });
 });

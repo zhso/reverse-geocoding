@@ -11,21 +11,11 @@ Reverse Geocoding for a Latitude and Longitude by Async.
 
 [npm-url]: https://npmjs.org/package/reverse-geocoding
 
-```js
-var geocoding = require("reverse-geocoding");
-geocoding.location(40.00403611111111, 116.48485555555555, function (err, data){
-    if(err){
-        console.log(err);
-    }else{
-        console.log(data);
-    }
-});
-```
-
 ## Features
 
-* Custom Language
+* Custom Params
 * Custom Proxy
+* Google Maps & Baidu Maps Support
 
 ## Installation
 
@@ -35,23 +25,15 @@ $ npm install reverse-geocoding
 
 ## Examples
 
-Custom Proxy
+Basic
 
 ```js
-var geocoding = new require("reverse-geocoding");
+var geocoding = new require('reverse-geocoding');
 var config = {
-    "options": {
-        "host": "proxy.zhso.net",
-        "port": 8080,
-        "protocol": "http:",
-        "method": "GET",
-        "headers": {
-            "Proxy-Authorization": "Basic " + new Buffer("username:password").toString("base64")
-        }
-    },
-    "language": "zh-cn"
+    'latitude': 40.00403611111111,
+    'longitude': 116.48485555555555
 };
-geocoding.location(40.00403611111111, 116.48485555555555, config, function (err, data){
+geocoding.location(config, function (err, data){
 	if(err){
 		console.log(err);
 	}else{
@@ -60,7 +42,46 @@ geocoding.location(40.00403611111111, 116.48485555555555, config, function (err,
 });
 ```
 
-## Callback Data Format
+Custom Proxy
+
+```js
+var geocoding = new require('reverse-geocoding');
+var config = {
+    'latitude': 40.00403611111111,
+    'longitude': 116.48485555555555,
+    'options': {
+        'host': 'proxy.zhso.net',
+        'port': 8080,
+        'protocol': 'http:',
+        'method': 'GET',
+        'headers': {
+            'Proxy-Authorization': 'Basic ' + new Buffer('username:password').toString('base64')
+        }
+    }
+};
+geocoding.location(config, function (err, data){
+	if(err){
+		console.log(err);
+	}else{
+		console.log(data);
+	}
+});
+```
+
+Custom Params
+
+```js
+var geocoding = new require('reverse-geocoding');
+var config = {
+    'latitude': 40.00403611111111,
+    'longitude': 116.48485555555555,
+    'language': 'zh-cn'
+};
+geocoding.location(config, (err, data) => {
+	console.log(err ? err : data);
+});
+```
+## Callback Data Format Sample (Base By Google Maps or Baidu Maps API)
 
 ```js
 {
