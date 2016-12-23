@@ -1,19 +1,14 @@
 {
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 5,
     "ecmaFeatures": {
       "impliedStrict": true
     }
   },
   "env": {
-    "node": true,
-    "es6": true
-  },
-  "ecmaFeatures": {
-    "arrowFunctions": true
+    "node": true
   },
   "rules": {
-    "no-var":2,
     "no-use-before-define":2,
     "eqeqeq":2
   }
