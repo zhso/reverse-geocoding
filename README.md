@@ -11,6 +11,11 @@ Reverse Geocoding for a Latitude and Longitude by Async.
 
 [npm-url]: https://npmjs.org/package/reverse-geocoding
 
+## Caution
+
+**The 1.0 was ES6 Edition**
+**From 2.0 was ES5 Edition(for some early nodejs version)**
+
 ## Features
 
 * Custom Params

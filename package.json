@@ -1,6 +1,6 @@
 {
   "name": "reverse-geocoding",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "Reverse Geocoding for a Latitude and Longitude by Async.",
   "main": "main.js",
   "scripts": {
