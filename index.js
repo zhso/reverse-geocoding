@@ -1,24 +1,30 @@
 /*global JSON*/
 'use strict';
-const http = require('http'), url = require('url'), querystring = require('querystring');
-exports.location = (config, callback)=> {
+const http = require('http'),
+    url = require('url'),
+    querystring = require('querystring');
+exports.location = (config, callback) => {
     if (!config || !callback) {
-        throw new Error("Invalid arguments number.");
+        throw new Error('Invalid arguments number.');
     } else if (!config.latitude || !config.longitude) {
-        throw new Error("Latitude or Longitude not found.");
+        throw new Error('Latitude or Longitude not found.');
     }
     //min the variable name:) node.js 5 does not support destructuring:(
-    let {latitude, longitude, map} = config;
+    let {
+        latitude,
+        longitude,
+        map
+    } = config;
     //clean other params
     delete config.latitude;
     delete config.longitude;
     let address = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}`;
     switch (map) {
-        case 'baidu':
-            address = `http://api.map.baidu.com/geocoder/v2/?output=json&location=${latitude},${longitude}`;
-            break;
-        default:
-            break;
+    case 'baidu':
+        address = `http://api.map.baidu.com/geocoder/v2/?output=json&location=${latitude},${longitude}`;
+        break;
+    default:
+        break;
     }
     delete config.map;
     //build interface address
@@ -26,27 +32,27 @@ exports.location = (config, callback)=> {
     let options = config.options || url.parse(address);
     options.path = options.path || address;
     new Promise((resolve, reject) => {
-        http.get(options, response=> {
+        http.get(options, response => {
             let bufferList = [];
-            response.on("data", chunk=> {
+            response.on('data', chunk => {
                 bufferList.push(chunk);
-            }).on("end", () => {
+            }).on('end', () => {
                 let data = JSON.parse(Buffer.concat(bufferList).toString());
                 //be ware, every interface return back data was not same.
-                if (data.status === "OK" || data.status === 0) {
+                if (data.status === 'OK' || data.status === 0) {
                     resolve(data);
                 } else {
                     reject(data.status);
                 }
-            }).on("error", error=> {
+            }).on('error', error => {
                 reject(error);
             });
         });
-    }).then(data=> {
+    }).then(data => {
         callback(undefined, data);
-    }, error=> {
+    }, error => {
         callback(error);
-    }).catch(error=> {
+    }).catch(error => {
         callback(error);
     })
 };
