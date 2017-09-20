@@ -14,7 +14,7 @@ exports.location = function (config, callback) {
         map = config.map;
     delete config.latitude;
     delete config.longitude;
-    var address = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude;
+    var address = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude;
     switch (map) {
     case 'baidu':
         address = 'http://api.map.baidu.com/geocoder/v2/?output=json&location=' + latitude + ',' + longitude;
