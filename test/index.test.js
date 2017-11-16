@@ -11,6 +11,10 @@ if(process.env['BAIDU_KEY']) {
   maps['baidu'] = { 'ak': process.env['BAIDU_KEY'] };
 }
 
+if(process.env['OPENCAGE_KEY']) {
+  maps['opencage'] = { 'key': process.env['OPENCAGE_KEY'] };
+}
+
 Object.keys(maps).forEach(function (map) {
     var options = maps[map];
     options['map'] = map;

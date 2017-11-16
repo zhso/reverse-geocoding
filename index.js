@@ -19,6 +19,9 @@ exports.location = function (config, callback) {
     case 'baidu':
         address = 'http://api.map.baidu.com/geocoder/v2/?output=json&location=' + latitude + ',' + longitude;
         break;
+    case 'opencage':
+        address = 'https://api.opencagedata.com/geocode/v1/json?q=' + latitude + ',' + longitude;
+        break;
     default:
         break;
     }
@@ -35,7 +38,7 @@ exports.location = function (config, callback) {
             var data = JSON.parse(body);
 
             //be ware, every interface return back data was not same.
-            if (data.status === 'OK' || data.status === 0) {
+            if (data.status === 'OK' || data.status === 0 || data.status.message === 'OK') {
                 callback(undefined, data);
             } else {
                 callback(data.status);
