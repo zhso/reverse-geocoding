@@ -1,6 +1,6 @@
-/*global JSON,Buffer,require,exports*/
+/*global JSON,require,exports*/
 'use strict';
-var http = require('http'),
+var request = require('request'),
     url = require('url'),
     querystring = require('querystring');
 exports.location = function (config, callback) {
@@ -19,30 +19,30 @@ exports.location = function (config, callback) {
     case 'baidu':
         address = 'http://api.map.baidu.com/geocoder/v2/?output=json&location=' + latitude + ',' + longitude;
         break;
+    case 'opencage':
+        address = 'https://api.opencagedata.com/geocode/v1/json?q=' + latitude + ',' + longitude;
+        break;
     default:
         break;
     }
     delete config.map;
-    //build interface address
     address += '&' + querystring.stringify(config);
-    var options = config.options || url.parse(address);
-    options.path = options.path || address;
+
     try {
-        http.get(options, function (response) {
-            var bufferList = [];
-            response.on('data', function (chunk) {
-                bufferList.push(chunk);
-            }).on('end', function () {
-                var data = JSON.parse(Buffer.concat(bufferList).toString());
-                //be ware, every interface return back data was not same.
-                if (data.status === 'OK' || data.status === 0) {
-                    callback(undefined, data);
-                } else {
-                    callback(data.status);
-                }
-            }).on('error', function (error) {
-                callback(error);
-            });
+        request(address, function (error, response, body) {
+            if (error) {
+              callback(error);
+              return;
+            }
+
+            var data = JSON.parse(body);
+
+            //be ware, every interface return back data was not same.
+            if (data.status === 'OK' || data.status === 0 || data.status.message === 'OK') {
+                callback(undefined, data);
+            } else {
+                callback(data.status);
+            }
         });
     }catch(err){
         callback(err);
