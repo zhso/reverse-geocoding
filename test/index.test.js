@@ -30,7 +30,13 @@ Object.keys(maps).forEach(function (map) {
                     'latitude': 40.00403611111111,
                     'longitude': 116.48485555555555
                 }), function (err, data) {
-                    data && done(); //
+                    if (err) {
+                        done(new Error(err));
+                    } else if (!data) {
+                        done(new Error('No Data'));
+                    } else {
+                      done();
+                    }
                 });
             });
             it('custom options should be valid.', function (done) {
@@ -39,7 +45,13 @@ Object.keys(maps).forEach(function (map) {
                     'longitude': 116.48485555555555,
                     'language': 'zh-cn'
                 }), function (err, data) {
-                    data && done();
+                    if (err) {
+                        done(new Error(err));
+                    } else if (!data) {
+                        done(new Error('No Data'));
+                    } else {
+                      done();
+                    }
                 });
             });
         });
