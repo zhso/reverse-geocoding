@@ -15,6 +15,18 @@ if(process.env['OPENCAGE_KEY']) {
   maps['opencage'] = { 'key': process.env['OPENCAGE_KEY'] };
 }
 
+var responseCheck = function(done) {
+    return function (err, data) {
+        if (err) {
+            done(new Error(err));
+        } else if (!data) {
+            done(new Error('No Data'));
+        } else {
+          done();
+        }
+    }
+};
+
 Object.keys(maps).forEach(function (map) {
     var options = maps[map];
     options['map'] = map;
@@ -33,30 +45,14 @@ Object.keys(maps).forEach(function (map) {
                 reverse.location(Object.assign({}, options, {
                     'latitude': 40.00403611111111,
                     'longitude': 116.48485555555555
-                }), function (err, data) {
-                    if (err) {
-                        done(new Error(err));
-                    } else if (!data) {
-                        done(new Error('No Data'));
-                    } else {
-                      done();
-                    }
-                });
+                }), responseCheck(done));
             });
             it('custom options should be valid.', function (done) {
                 reverse.location(Object.assign({}, options, {
                     'latitude': 40.00403611111111,
                     'longitude': 116.48485555555555,
                     'language': 'zh-cn'
-                }), function (err, data) {
-                    if (err) {
-                        done(new Error(err));
-                    } else if (!data) {
-                        done(new Error('No Data'));
-                    } else {
-                      done();
-                    }
-                });
+                }), responseCheck(done));
             });
         });
     });
