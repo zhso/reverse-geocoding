@@ -38,6 +38,7 @@ var config = {
     'latitude': 40.00403611111111,
     'longitude': 116.48485555555555
 };
+//If callback is not provided, promise is returned.
 geocoding.location(config, function (err, data){
 	if(err){
 		console.log(err);
@@ -64,6 +65,7 @@ var config = {
         }
     }
 };
+//If callback is not provided, promise is returned.
 geocoding.location(config, function (err, data){
 	if(err){
 		console.log(err);
@@ -82,6 +84,7 @@ var config = {
     'longitude': 116.48485555555555,
     'language': 'zh-cn'
 };
+//If callback is not provided, promise is returned.
 geocoding.location(config, (err, data) => {
 	console.log(err ? err : data);
 });

@@ -1,0 +1,1 @@
+function location(config : {[index : string] : any, callback : any})
