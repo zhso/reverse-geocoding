@@ -1,5 +1,5 @@
 'use strict';
-var reverse = require('./../index.js'),
+var reverse = require('./../lib/index.js'),
     chai = require('chai'),
     expect = chai.expect;
 
@@ -32,23 +32,23 @@ Object.keys(maps).forEach(function (map) {
     options['map'] = map;
 
     describe(map, function() {
-        describe(".location()", function () {
+        describe("()", function () {
             it("{arguments} number invalid should throw error.", function () {
-                expect(reverse.location).to.throw(Error);
+                expect(reverse).to.throw(Error);
             });
             it('{latitude} or {longitude} undefined should throw error.', function () {
                 expect(function () {
-                    reverse.location(options, function () {});
+                    reverse(options, function () {});
                 }).to.throw(Error);
             });
             it('valid gps should return location.', function (done) {
-                reverse.location(Object.assign({}, options, {
+                reverse(Object.assign({}, options, {
                     'latitude': 40.00403611111111,
                     'longitude': 116.48485555555555
                 }), responseCheck(done));
             });
             it('custom options should be valid.', function (done) {
-                reverse.location(Object.assign({}, options, {
+                reverse(Object.assign({}, options, {
                     'latitude': 40.00403611111111,
                     'longitude': 116.48485555555555,
                     'language': 'zh-cn'
