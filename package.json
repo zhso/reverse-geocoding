@@ -29,13 +29,13 @@
     "babel-preset-env": "^1.6.1",
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
-    "eslint": "^4.19.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^5.0.4"
+    "eslint-plugin-import": "^2.18.2",
+    "istanbul": "^0.4.5"
   },
   "dependencies": {
+    "eslint": "^6.2.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "mocha": "^6.2.0",
     "request": "^2.83.0"
   }
 }
