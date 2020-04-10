@@ -9,7 +9,7 @@ Reverse Geocoding for a Latitude and Longitude by Async.
 
 * Custom Params
 * Custom Proxy
-* Google Maps & Baidu Maps Support
+* Support for querying Baidu Maps, Google Maps, and the OpenCage Geocoder
 
 ## Examples
 
@@ -69,7 +69,12 @@ geocoding(config, (err, data) => {
 	console.log(err ? err : data);
 });
 ```
-## Callback Data Format Sample (Base By Google Maps or Baidu Maps API)
+
+Note: specific geocoding providers may require different authentication parameters:
+* OpenCage requires a `key` parameter ([register here](https://geocoder.opencagedata.com))
+* Baidu Maps rerequires a `ak` parameter
+
+## Callback Data Format Sample (Based on Google Maps or Baidu Maps API, may differ depending on geocoding provider used)
 
 ```js
 {
