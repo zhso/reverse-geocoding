@@ -19,7 +19,8 @@ Basic
 var geocoding = new require('reverse-geocoding');
 var config = {
     'latitude': 40.00403611111111,
-    'longitude': 116.48485555555555
+    'longitude': 116.48485555555555,
+    'apiKey': ***Your Google Maps API Key***
 };
 geocoding(config, function (err, data){
 	if(err){
